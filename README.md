@@ -9,7 +9,7 @@ https://github.com/user-attachments/assets/3168fa33-94d7-4944-9a08-479b24c9b3ed
 
 ## Overview
 
-You'll build a simple Todo List application using React Native and TypeScript. The application will simulate interaction with a backend API, using provided fake API functions with realistic network delays.
+I built a simple Todo List application using React Native and TypeScript. The application will simulate interaction with a backend API, using provided fake API functions with realistic network delays using Promise.
 
 ## Requirements
 
