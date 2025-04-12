@@ -2,7 +2,8 @@
   <img height="80" alt="" title="" src=".github/icon-todo.png">
 </h1>
 
-![cover](.github/cover.png?style=flat)
+
+https://github.com/user-attachments/assets/3168fa33-94d7-4944-9a08-479b24c9b3ed
 
 # ACM React Native TODO
 
