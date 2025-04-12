@@ -7,47 +7,51 @@ import { TodoApi } from '../api/todoApi';
 export function useTodo() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const getTodos =  () => {
-       TodoApi.getTodos()
-           .then(todos => {
-             setTodos(todos)
-           })
-           .catch(error => {
-             console.log(error)
-           });
-           
+  const getTodos = () => {
+    TodoApi.getTodos()
+      .then(todos => {
+        setTodos(todos)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
   }
 
   const handleAddTodo = (text: string) => {
-    const createdAt = new Date();
-    const _id: string = new Date().valueOf().toString()
-
-     const newTodo: Todo = {
-       id: _id,
-       text,
-       createdAt,
-       completed: false
-     }
-
-     setTodos(prev => [...prev, newTodo])
+    TodoApi.addTodo(text)
+      .then(todo => {
+        // console.log(todo);
+        // setTodos([...todos, todo]);
+        getTodos();
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
   const handleUpdateTodo = (id: string, completed: boolean) => {
-      const filteredTodo = todos.find( item => item.id == id);
-     
-     filteredTodo ? filteredTodo.completed = !completed : null
-
-      setTodos([...todos, ])
+    TodoApi.updateTodoStatus(id, completed)
+      .then(todo => {
+        console.log(todo);
+        getTodos();
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   const handleDeleteTodo = (id: string) => {
-    const filterEdTodos = todos.filter(item => item.id !== id)
-    
-    if(todos.length){
-      setTodos(filterEdTodos)
-    }
+    TodoApi.deleteTodo(id)
+      .then(response => {
+        console.log(response);
+        getTodos();
+      })
+      .catch(error => {
+        console.log(error);
+
+      })
   }
-  
+
   return {
     todos,
     getTodos,

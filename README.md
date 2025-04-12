@@ -1,18 +1,14 @@
+<h1 align="center">
+  <img height="80" alt="" title="" src=".github/icon-todo.png">
+</h1>
+
+![cover](.github/cover.png?style=flat)
+
 # ACM React Native TODO
 
 ## Overview
 
 You'll build a simple Todo List application using React Native and TypeScript. The application will simulate interaction with a backend API, using provided fake API functions with realistic network delays.
-
-## Reference Demo
-
-Before you begin coding, please watch this short demo video showing how the finished application should look and behave:
-
-[Video Demo](https://firebasestorage.googleapis.com/v0/b/enzrossi-1520702757332.appspot.com/o/assets%2Fenzrossi-react-native-todo-result.mp4?alt=media&token=e6e6d9b5-ffef-455a-94b1-b9109c89fb19)
-
-## Time Limit
-
-20 minutes
 
 ## Requirements
 
@@ -22,11 +18,6 @@ Before you begin coding, please watch this short demo video showing how the fini
 2. Add new todos
 3. Toggle completion status of todos
 4. Delete todos
-
-### Technical Requirements
-
-1. Use the provided TodoApi service in the `/api/todoApi.ts` file and the `/hooks/useTodo.ts`
-2. Implement proper TypeScript interfaces
 
 ### Project Structure
 

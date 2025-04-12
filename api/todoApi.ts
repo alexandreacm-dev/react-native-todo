@@ -30,53 +30,79 @@ export const TodoApi = {
   // Get all todos
   async getTodos(): Promise<Todo[]> {
     // await delay(800); // Simulate network delay
-    return [...todos].sort((a, b) => {
-      if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1; // Move completed to the end
-      }
-      return b.createdAt.getTime() - a.createdAt.getTime(); // Sort by createdAt
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(
+          [...todos].sort((a, b) => {
+            if (a.completed !== b.completed) {
+              return a.completed ? 1 : -1; // Move completed to the end
+            }
+            return b.createdAt.getTime() - a.createdAt.getTime(); // Sort by createdAt
+          })
+        )
+      }, 800);
     });
   },
 
   // Add a new todo
   async addTodo(text: string): Promise<Todo> {
+    let newTodo: Todo = {} as Todo;
     // await delay(500);
-    const newTodo: Todo = {
-      id: Date.now().toString(),
-      createdAt: new Date(),
-      text,
-      completed: false,
-    };
-    todos = [...todos, newTodo];
-    return newTodo;
+    const newPromise = new Promise((resolve) => setTimeout(() => {
+      newTodo = {
+        id: Date.now().toString(),
+        createdAt: new Date(),
+        text,
+        completed: false,
+      }
+
+      todos = [...todos, newTodo];
+      resolve(newTodo)
+    }, 500)) as Promise<Todo>;
+
+
+    return newPromise
   },
 
   // Toggle todo completion status
   async updateTodoStatus(id: string, completed: boolean): Promise<Todo> {
     // await delay(300);
-    const todoIndex = todos.findIndex((todo) => todo.id === id);
-    if (todoIndex === -1) {
-      throw new Error('Todo not found');
-    }
+    const updatePromise = new Promise(resolve => {
+      setTimeout(() => {
+        const todoIndex = todos.findIndex((todo) => todo.id === id);
+        if (todoIndex === -1) {
+          throw new Error('Todo not found');
+        }
 
-    const updatedTodo = { ...todos[todoIndex], completed };
-    todos = [
-      ...todos.slice(0, todoIndex),
-      updatedTodo,
-      ...todos.slice(todoIndex + 1),
-    ];
-    return updatedTodo;
+        const updatedTodo = { ...todos[todoIndex], completed };
+        todos = [
+          ...todos.slice(0, todoIndex),
+          updatedTodo,
+          ...todos.slice(todoIndex + 1),
+        ];
+
+        resolve(updatedTodo)
+      }, 300);
+    }) as Promise<Todo>;
+
+    return updatePromise
   },
 
   // Delete a todo
   async deleteTodo(id: string): Promise<string> {
     // await delay(600);
-    const todoIndex = todos.findIndex((todo) => todo.id === id);
-    if (todoIndex === -1) {
-      throw new Error('Todo not found');
-    }
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const todoIndex = todos.findIndex((todo) => todo.id === id);
+        if (todoIndex === -1) {
+          throw new Error('Todo not found');
+        }
 
-    todos = [...todos.slice(0, todoIndex), ...todos.slice(todoIndex + 1)];
-    return id;
+        todos = todos.filter(todo => todo.id !== id);
+        // todos = [...todos.slice(0, todoIndex), ...todos.slice(todoIndex + 1)];
+
+        resolve(id)
+      }, 600);
+    });
   },
 };
