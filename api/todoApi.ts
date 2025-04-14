@@ -67,13 +67,13 @@ export const TodoApi = {
   // Toggle todo completion status
   async updateTodoStatus(id: string, completed: boolean): Promise<Todo> {
     // await delay(300);
+    const todoIndex = todos.findIndex((todo) => todo.id === id);
+    if (todoIndex === -1) {
+      throw new Error('Todo not found');
+    }
+
     const updatePromise = new Promise(resolve => {
       setTimeout(() => {
-        const todoIndex = todos.findIndex((todo) => todo.id === id);
-        if (todoIndex === -1) {
-          throw new Error('Todo not found');
-        }
-
         const updatedTodo = { ...todos[todoIndex], completed };
         todos = [
           ...todos.slice(0, todoIndex),
@@ -91,16 +91,14 @@ export const TodoApi = {
   // Delete a todo
   async deleteTodo(id: string): Promise<string> {
     // await delay(600);
+    const todoIndex = todos.findIndex((todo) => todo.id === id);
+    if (todoIndex === -1) {
+      throw new Error('Todo not found');
+    }
+
     return new Promise(resolve => {
       setTimeout(() => {
-        const todoIndex = todos.findIndex((todo) => todo.id === id);
-        if (todoIndex === -1) {
-          throw new Error('Todo not found');
-        }
-
-        todos = todos.filter(todo => todo.id !== id);
-        // todos = [...todos.slice(0, todoIndex), ...todos.slice(todoIndex + 1)];
-
+        todos = [...todos.slice(0, todoIndex), ...todos.slice(todoIndex + 1)];
         resolve(id)
       }, 600);
     });
